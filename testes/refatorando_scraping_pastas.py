@@ -4,9 +4,19 @@ import pandas as pd
 
 
 # Função que busca as pastas e arquivos encontrado com a página especificada
+def html_convert_python(url):
+    """
+        Função Converte o conteudo HTML recebido pela requisição em objetos python
+    :param url: -> url completa
+    :return:
+    """
+    # Faz uma requisição trazendo o html
+    req_get = requests.get(url)
+    # beautifulSoup transforma um documento HTML complexo em uma árvore complexa de objetos Python.
+    return BeautifulSoup(req_get.content, 'html.parser')  # retornando o obj
 
 
-def get_navegation(obj_soup, page_main):
+def get_data_page(obj_soup, page_main):
     # lista para os dicionarios recebidos
     data = []
     # como a classe das subpastas são diferentes é preciso criar uma função para diferenciar
@@ -51,9 +61,7 @@ def get_navegation(obj_soup, page_main):
 
 
 
-
-
-def gera_dados_repositorio(url):
+def get_data_repository_full(url):
     # esta pasta contera todas as pastas que for preciso verificar, iniciando com o diretorio principal
     urls_directories = [url]
     print('lista de diretorios para pesquisar:', urls_directories)
@@ -69,7 +77,7 @@ def gera_dados_repositorio(url):
         # Por cada diretorio encontrado
         for url_directory in urls_directories:
             # armazenando os dados coletados do repositório indicado com a função que busca os itens
-            collected_data = get_navegation(html_convert_python('https://github.com/' + url_directory), page_main)
+            collected_data = get_data_page(html_convert_python('https://github.com/' + url_directory), page_main)
 
             # percorre todos os dados coletados
             for data in collected_data:
@@ -86,13 +94,11 @@ def gera_dados_repositorio(url):
         # A lista principal herda os subdiretorios
         urls_directories = subdirectories
 
-    for dados in data_full:
-        print(dados)
+    return data_full
 
 
 repos = ['Erickson-lopes-dev/Python_BeautifulSoup_V4.9.2',
-         # 'Erickson-lopes-dev/Python_BeautifulSoup_V4.9.2',
-         # 'frontpressorg/frontpress',
+         'frontpressorg/frontpress',
          # 'SambitAcharya/Mini-Projects',
          # 'jenkinsci/docker',
          # 'docker/compose'
@@ -100,7 +106,6 @@ repos = ['Erickson-lopes-dev/Python_BeautifulSoup_V4.9.2',
 
 for repo in repos:
     # print(url_repo)
-    gera_dados_repositorio(repo)
-    print()
+    print(get_data_repository_full(repo))
     # get_navegation(html_convert_python(url_repo), True)
     # break

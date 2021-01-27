@@ -15,24 +15,29 @@ def get_data_page(obj_soup, page_main):
     # e extraimos uma lista com apenas os que contem a tag role = 'row', após a priemira linha que nao precisamos
 
     for row in obj_soup.find(class_=grid).find_all(role="row")[1:]:
+        try:
+            # Pega o tipo de arquivo (Pasta, Arquivo, Symlink File)
+            type_file = row.svg['aria-label']
 
-        type_file = row.svg['aria-label']
-
+            if type_file != 'Directory':
+                type_file = 'File'
+        except:
+            type_file = 'File'
         # a url armazenada no href
         url = row.find('a').attrs['href']
-        # Nome do arquivo
-        name = row.find('a').attrs['title']
 
-        # Por padrão a str é um directory
+        # Nome do arquivo
+        try:
+            name = row.find('a').attrs['title']
+        except KeyError:
+            name = 'others'
+
         extension = 'Directory'
 
-        # Se o tipo de arquivo não for
         if type_file != 'Directory':
-            # Apartir do nome faz um split para remover a virgula e retira o ultimo item ['extension', 'html'] -> html
             extension = name.split('.')[-1]
 
-        # junta os dados em um dicionario e adiciona dentro de uma lista
+            # junta os dados em um dicionario e adiciona dentro de uma lista
         data.append({'type_file': type_file, 'url': url, 'name': name, 'extension': extension})
 
-    # retorna os dados coletados do scraping
     return data

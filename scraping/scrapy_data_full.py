@@ -2,7 +2,7 @@ from scraping.funtion import html_convert_python
 from scraping.scrapy_tree import get_data_page
 
 
-def gera_dados_repositorio(url):
+def get_data_repository_full(url):
     # esta pasta contera todas as pastas que for preciso verificar, iniciando com o diretorio principal
     urls_directories = [url]
     print('lista de diretorios para pesquisar:', urls_directories)
@@ -35,5 +35,4 @@ def gera_dados_repositorio(url):
         # A lista principal herda os subdiretorios
         urls_directories = subdirectories
 
-    for dados in data_full:
-        print(dados)
+    return data_full
