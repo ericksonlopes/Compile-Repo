@@ -4,6 +4,8 @@ import pandas as pd
 
 
 # Função que busca as pastas e arquivos encontrado com a página especificada
+
+
 def get_navegation(obj_soup, page_main):
     # lista para os dicionarios recebidos
     data = []
@@ -48,42 +50,44 @@ def get_navegation(obj_soup, page_main):
     return data
 
 
-# Função converte uma o html de uma url para obj python do bs4
-def html_convert_python(url):
-    # print(f'Convertendo url {url} para bs4')
-    # Faz uma requisição trasendo o html
-    req_get = requests.get(url)
-    # A Beautiful Soup analisa o documento usando o melhor analisador disponível.
-    # Ele usará um analisador HTML
-    return BeautifulSoup(req_get.content, 'html.parser')  # retornando o obj
 
 
-def gera_dados_repositorio(nome_repositorio):
-    urls_directories = [nome_repositorio]
+
+def gera_dados_repositorio(url):
+    # esta pasta contera todas as pastas que for preciso verificar, iniciando com o diretorio principal
+    urls_directories = [url]
+    print('lista de diretorios para pesquisar:', urls_directories)
+    # conterá todos os dados da raspagem
     data_full = []
+    # Passa a informação de que é a pagina principal do projeto
     page_main = True
-    while len(urls_directories) > 0:
-        subdirectories = []
-        for url_directory in urls_directories:
-            # print(url_directory)
-            collected_data = get_navegation(
-                html_convert_python('https://github.com' + url_directory.replace('https://github.com', '')),
-                page_main)
 
+    # Verifica se a quantidade de diretorios é menor que 0
+    while len(urls_directories) > 0:
+        # lista que armazena os subdiretorios
+        subdirectories = []
+        # Por cada diretorio encontrado
+        for url_directory in urls_directories:
+            # armazenando os dados coletados do repositório indicado com a função que busca os itens
+            collected_data = get_navegation(html_convert_python('https://github.com/' + url_directory), page_main)
+
+            # percorre todos os dados coletados
             for data in collected_data:
+                # adiciona cada item coletado dentro do
                 data_full.append(data)
+                # se o tipo do arquivo for
                 if data['type_file'] == 'Directory':
+                    #  Armazena os subsdiretorios para as novas buscas
                     subdirectories.append(data['url'])
 
+        # Quando a primeira busca for feita é passado o valor false,
+        # para o sistema reconhecer que vem apenas subpastas
         page_main = False
+        # A lista principal herda os subdiretorios
         urls_directories = subdirectories
 
-    for item in data_full:
-        print(item)
-
-    # print(data_full)
-    df = pd.DataFrame(data_full)
-    return df
+    for dados in data_full:
+        print(dados)
 
 
 repos = ['Erickson-lopes-dev/Python_BeautifulSoup_V4.9.2',
@@ -95,9 +99,8 @@ repos = ['Erickson-lopes-dev/Python_BeautifulSoup_V4.9.2',
          ]
 
 for repo in repos:
-    url_repo = 'https://github.com/' + repo
     # print(url_repo)
-    gera_dados_repositorio(url_repo)
+    gera_dados_repositorio(repo)
     print()
     # get_navegation(html_convert_python(url_repo), True)
     # break

@@ -1,5 +1,5 @@
 # Função que busca as pastas e arquivos encontrado com a página especificada
-def get_navegation(obj_soup, page_main):
+def get_data_page(obj_soup, page_main):
     # lista para os dicionarios recebidos
     data = []
     # como a classe das subpastas são diferentes é preciso criar uma função para diferenciar
@@ -17,7 +17,6 @@ def get_navegation(obj_soup, page_main):
     for row in obj_soup.find(class_=grid).find_all(role="row")[1:]:
 
         type_file = row.svg['aria-label']
-
 
         # a url armazenada no href
         url = row.find('a').attrs['href']
