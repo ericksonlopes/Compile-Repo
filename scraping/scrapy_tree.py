@@ -1,7 +1,3 @@
-import requests
-from bs4 import BeautifulSoup
-
-
 # Função que busca as pastas e arquivos encontrado com a página especificada
 def get_navegation(obj_soup, page_main):
     # lista para os dicionarios recebidos
@@ -26,33 +22,13 @@ def get_navegation(obj_soup, page_main):
         # Nome do arquivo
         name = row.find('a').attrs['title']
 
-        extension = 'Directory'
+        extension = 'Folder'
 
         if type_file != 'Directory':
             extension = name.split('.')[-1]
 
-            # junta os dados em um dicionario e adiciona dentro de uma lista
+        # junta os dados em um dicionario e adiciona dentro de uma lista
         data.append({'type_file': type_file, 'url': url, 'name': name, 'extension': extension})
 
-    for item in data:
-        print(item)
-
-
-# Função converte uma o html de uma url para obj python do bs4
-def html_convert_python(url):
-    # Faz uma requisição trasendo o html
-    req_get = requests.get(url)
-    # A Beautiful Soup analisa o documento usando o melhor analisador disponível.
-    # Ele usará um analisador HTML
-    return BeautifulSoup(req_get.content, 'html.parser')  # retornando o obj
-
-
-repos = ['Erickson-lopes-dev/Python_BeautifulSoup_V4.9.2',
-         'frontpressorg/frontpress',
-         'SambitAcharya/Mini-Projects', 'jenkinsci/docker', 'docker/compose']
-for repo in repos:
-    url_repo = 'https://github.com/' + repo
-    obj_repo = html_convert_python(url_repo)
-
-    get_navegation(obj_repo, True)
-    # break
+    # retorna os dados coletados do scraping
+    return data
