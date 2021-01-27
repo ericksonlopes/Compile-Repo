@@ -22,9 +22,12 @@ def get_navegation(obj_soup, page_main):
         # Nome do arquivo
         name = row.find('a').attrs['title']
 
-        extension = 'Folder'
+        # Por padrão a str é um directory
+        extension = 'Directory'
 
+        # Se o tipo de arquivo não for
         if type_file != 'Directory':
+            # Apartir do nome faz um split para remover a virgula e retira o ultimo item ['extension', 'html'] -> html
             extension = name.split('.')[-1]
 
         # junta os dados em um dicionario e adiciona dentro de uma lista
