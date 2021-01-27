@@ -15,8 +15,10 @@ def get_navegation(obj_soup, page_main):
     # e extraimos uma lista com apenas os que contem a tag role = 'row', após a priemira linha que nao precisamos
 
     for row in obj_soup.find(class_=grid).find_all(role="row")[1:]:
-        # Pega o tipo de arquivo (Pasta, Arquivo, Symlink File)
+
         type_file = row.svg['aria-label']
+
+
         # a url armazenada no href
         url = row.find('a').attrs['href']
         # Nome do arquivo
