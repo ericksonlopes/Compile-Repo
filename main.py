@@ -12,12 +12,13 @@ class CompileRepo:
 
         for repo in self.repos:
             print(f"Pesuisando o repositório '{repo.split('/')[1]}' de {repo.split('/')[0]}")
+
             for item in get_data_repository_full(repo):
                 if item['type_file'] == 'File':
                     lb = lines_bytes(item, repo, self)
                     if lb:
                         print(lb)
-
+                # analisar -> Fazer Tree partindo  dos caminhos dos arquivos, pois o git-hub não sobe pastas vazias
             print('#' * 100, '\n')
 
 
