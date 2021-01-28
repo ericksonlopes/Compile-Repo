@@ -8,6 +8,9 @@ def get_data_repository_full(url):
     :param url:
     :return:
     """
+
+    print('Buscando todos os itens do repositório')
+
     # esta pasta contera todas as pastas que for preciso verificar, iniciando com o diretorio principal
     urls_directories = [url]
     # print('lista de diretorios para pesquisar:', urls_directories)
