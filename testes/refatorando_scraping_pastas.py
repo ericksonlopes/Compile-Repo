@@ -60,7 +60,6 @@ def get_data_page(obj_soup, page_main):
     return data
 
 
-
 def get_data_repository_full(url):
     # esta pasta contera todas as pastas que for preciso verificar, iniciando com o diretorio principal
     urls_directories = [url]

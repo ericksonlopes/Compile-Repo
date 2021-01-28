@@ -1,5 +1,15 @@
 # Função que busca as pastas e arquivos encontrado com a página especificada
-def get_data_page(obj_soup, page_main):
+from scraping.funtion import html_convert_python
+
+
+def get_data_page(url_page, page_main):
+    """
+        Captura as informações especificada dentro do arquivo convertido de HTML para python
+    :param url_page:
+    :param page_main:
+    :return:
+    """
+    obj_soup = html_convert_python(url_page)
     # lista para os dicionarios recebidos
     data = []
     # como a classe das subpastas são diferentes é preciso criar uma função para diferenciar
@@ -29,7 +39,7 @@ def get_data_page(obj_soup, page_main):
         # Nome do arquivo
         try:
             name = row.find('a').attrs['title']
-        except KeyError:
+        except:
             name = 'others'
 
         extension = 'Directory'

@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 
 def html_convert_python(url):
     """
-        Função Converte o conteudo HTML recebido pela requisição em objetos python
+        Função Converte o conteudo HTML recebido pela requisição em objetos python, Retornando esse obj
     :param url: -> url completa
     :return:
     """
