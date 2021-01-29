@@ -20,7 +20,7 @@ class CompileRepo:
                 tree.create_node(f"[{repo}]", '/')
                 for item in get_data_repository_full(repo):
                     if item['type_file'] == 'Directory':
-
+                        print(item)
                         name = f"[{item['name']}]"
 
                         parent = item['url'].replace(f'/{repo}/tree/master', '') \
@@ -51,6 +51,7 @@ class CompileRepo:
 
                 for item in get_data_repository_full(repo):
                     if item['type_file'] == 'File':
+                        print(item)
                         # busca os itens
                         lb = lines_bytes(item, repo, self)
                         if lb:
