@@ -17,27 +17,33 @@ class CompileRepo:
             tree.create_node(f"[{repo}]", '/')
             for item in get_data_repository_full(repo):
                 if item['type_file'] == 'Directory':
+
                     name = f"[{item['name']}]"
 
-                    parent = item['url'].replace(f'/{repo}/tree/master', '').replace(item['name'].replace(' ', '%20'),
-                                                                                     '')
+                    parent = item['url'].replace(f'/{repo}/tree/master', '') \
+                        .replace(item['name'].replace(' ', '%20'), '')
 
                     path_name = item['url'].replace(f'/{repo}/tree/master', '')
 
                     # Verifica se não é o path base '/'
-
-                    print(path_name)
-                    print(name)
-                    print('path:' + parent)
-
                     if len(parent) > 1:
                         # remove o ultimo elemento que é a barra
                         parent = parent[:-1]
+
+                    # print(path_name)
+                    # print(name)
+                    # print('parent:' + parent)
+                    # print(item)
+
                     try:
                         tree.create_node(name, path_name, parent=parent)
                     except Exception as error:
-                        print(error)
-                    print()
+                        pass
+                        # print()
+                        # print(parent.split('/')[1:])
+                        # print(parent.split('/')[-1])
+                        # print(error)
+                    # print()
                 # se o item coletado for do tipo File
 
             for item in get_data_repository_full(repo):
@@ -52,18 +58,19 @@ class CompileRepo:
                             # remove o ultimo elemento que é a barra
                             parent = parent[:-1]
 
-                        print(parent)
-                        print(formated_nome)
+                        # print(parent)
+                        # print(formated_nome)
                         # print(lb)
 
                         try:
                             tree.create_node(formated_nome, formated_nome, parent=parent)
                         except Exception as error:
-                            print(error)
-                        print()
-                # analisar -> Fazer Tree partindo  dos caminhos dos arquivos, pois o git-hub não sobe pastas vazias
-            print('#' * 100, '\n')
+                            pass
+                            # print(error)
+                        # print()
             tree.show()
+            # analisar -> Fazer Tree partindo  dos caminhos dos arquivos, pois o git-hub não sobe pastas vazias
+            print('#' * 100, '\n')
 
             # break
 
