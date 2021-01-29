@@ -1,16 +1,14 @@
-from treelib import Node, Tree
+from treelib import Tree
 
 tree = Tree()
-tree.create_node("Harry", "harry")
-tree.create_node("Jane", "jane", parent="harry")
-tree.create_node("Bill", "bill", parent="harry")
-tree.create_node("Diane", "diane", parent="jane")
-tree.create_node("Luis", "luis", parent="diane")
-tree.create_node("Erickson", "erickson", parent="bill")
-tree.create_node("Erickson", 1, parent="harry")
+tree.create_node("Pasta", "/")
+tree.create_node("Pasta", "/pasta2", parent="/")
+tree.create_node("Pasta", "/pasta3", parent="/")
+tree.create_node("Pasta", "/pasta4", parent="/pasta3")
+tree.create_node("Pasta", "/pasta5", parent="/")
 
 tree.show()
-tree.save2file('tree.txt')
+# tree.save2file('tree.txt')
 
 # print(tree.to_json())
 # print(tree.to_graphviz())

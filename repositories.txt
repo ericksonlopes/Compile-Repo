@@ -1,5 +1,1 @@
-Erickson-lopes-dev/Python_BeautifulSoup_V4.9.2
-frontpressorg/frontpress
 SambitAcharya/Mini-Projects
-jenkinsci/docker
-docker/compose
