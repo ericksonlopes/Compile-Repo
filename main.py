@@ -51,10 +51,10 @@ class CompileRepo:
 
                 for item in get_data_repository_full(repo):
                     if item['type_file'] == 'File':
-                        print(item)
                         # busca os itens
                         lb = lines_bytes(item, repo, self)
                         if lb:
+                            print(lb)
                             parent = f"{lb['url'].replace(f'/{repo}/blob/master', '').replace(item['name'], '')}"
                             formated_nome = f"{lb['name']} ({lb['lb']['lines']} linhas)"
 
