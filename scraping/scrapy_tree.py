@@ -29,6 +29,7 @@ def get_data_page(url_page, page_main):
             # Pega o tipo de arquivo (Pasta, Arquivo, Symlink File)
             type_file = row.svg['aria-label']
 
+            # se caso nao seja diretorio todos os outros sao arquivos
             if type_file != 'Directory':
                 type_file = 'File'
         except:
@@ -40,10 +41,12 @@ def get_data_page(url_page, page_main):
         try:
             name = row.find('a').attrs['title']
         except:
+            # quando nao encontrar o nome do arquivo
             name = 'others'
 
         extension = 'Directory'
 
+        # se caso o tipo do arquvio nao for diretorio, cria a extension
         if type_file != 'Directory':
             extension = name.split('.')[-1]
 

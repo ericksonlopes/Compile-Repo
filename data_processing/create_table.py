@@ -1,13 +1,21 @@
 from prettytable import PrettyTable
 
 from scraping.scrapy_lines_bytes import get_lines_bytes
+from tqdm import tqdm
 
 
 def create_pettyTable(repo, data_full, self):
+    """
+        Função que constrói e retorna a tabela
+    :param repo:
+    :param data_full:
+    :param self:
+    :return:
+    """
     # cria a tabela e passa as respectivas colunas
     table = PrettyTable(['Type File', 'URL', 'Name', 'Extension', 'Lines', 'Size'])
 
-    for file in data_full:
+    for file in tqdm(data_full, desc='Construindo Tabela.'):
         # Verifica se a chave 'type_file' é 'File', se for e tiver a chave 'extension' como 'Go to parent directory'
         if file['type_file'] == 'File' and file['extension'] != 'Go to parent directory':
             try:
@@ -30,4 +38,4 @@ def create_pettyTable(repo, data_full, self):
     # alinha todos os itens das colunas
     table.align = 'l'
     # retorna a tabela ordenada pela coluna size
-    return table.get_string(sortby='Size')
+    print(table.get_string(sortby='Size'))

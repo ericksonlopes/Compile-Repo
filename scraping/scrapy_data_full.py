@@ -1,4 +1,4 @@
-from scraping.funtion import html_convert_python
+from tqdm import tqdm
 from scraping.scrapy_tree import get_data_page
 
 
@@ -41,4 +41,5 @@ def get_data_repository_full(url):
         # A lista principal herda os subdiretorios
         urls_directories = subdirectories
 
+    # remtorna todos os dados
     return data_full
