@@ -18,11 +18,17 @@ class CompileRepo:
 
                 data = get_data_repository_full(repo)
                 keys = data[0].keys()
-
-                table = PrettyTable(keys)
+                print(data)
+                table = PrettyTable(['type_file', 'url', 'name', 'extension'])
 
                 for item in data:
-                    table.add_row([item[0], item[1], item[2], item[3]])
+                    if item['type_file'] == 'File' and item['extension'] != 'Go to parent directory':
+                        table.add_row([
+                            item['type_file'],
+                            item['url'].replace(f'/{repo}/blob/master', ''),
+                            item['name'],
+                            item['extension']
+                        ])
 
                 print(table)
                 # print(data)
@@ -84,7 +90,6 @@ class CompileRepo:
                 # tree.show()
                 # # analisar -> Fazer Tree partindo  dos caminhos dos arquivos, pois o git-hub não sobe pastas vazias
 
-                print('#' * 100, '\n')
             except Exception as error:
                 print(error)
 

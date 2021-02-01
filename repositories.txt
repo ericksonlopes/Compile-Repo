@@ -1,2 +1,4 @@
 Erickson-lopes-dev/Python_BeautifulSoup_V4.9.2
 Erickson-lopes-dev/Compile-Repo
+jazzband/prettytable
+jenkinsci/docker
