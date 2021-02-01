@@ -1,3 +1,5 @@
+from time import sleep
+
 from prettytable import PrettyTable
 
 from scraping.scrapy_lines_bytes import get_lines_bytes
@@ -15,7 +17,7 @@ def create_pettyTable(repo, data_full, self):
     # cria a tabela e passa as respectivas colunas
     table = PrettyTable(['Type File', 'URL', 'Name', 'Extension', 'Lines', 'Size'])
 
-    for file in tqdm(data_full, desc='Construindo Tabela.'):
+    for file in tqdm(data_full, desc='Construindo Tabela'):
         # Verifica se a chave 'type_file' é 'File', se for e tiver a chave 'extension' como 'Go to parent directory'
         if file['type_file'] == 'File' and file['extension'] != 'Go to parent directory':
             try:
@@ -31,6 +33,7 @@ def create_pettyTable(repo, data_full, self):
                     lb[0],
                     lb[1]
                 ])
+
             except:
                 # Caso gere algum erro por arquivos solicitados que na verdade são links
                 pass
