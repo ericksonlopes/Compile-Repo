@@ -1,14 +1,13 @@
 from data_processing.create_table import create_pettyTable
 from scraping.scrapy_data_full import get_data_repository_full
-from tqdm import tqdm
 
 
 class CompileRepo:
-    def __init__(self):
+    def __init__(self, name_file):
         self.url_git = 'https://github.com'
 
         # Abre o arquivo e processa todos os dados
-        with open('repositories.txt', 'r') as file:
+        with open(name_file, 'r') as file:
             # Fatiando em linhas para lista
             self.repos = file.read().split()
 
@@ -23,4 +22,4 @@ class CompileRepo:
 
 
 if __name__ == '__main__':
-    CompileRepo()
+    CompileRepo('repositories.txt')

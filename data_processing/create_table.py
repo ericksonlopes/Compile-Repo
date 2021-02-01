@@ -1,7 +1,4 @@
-from time import sleep
-
 from prettytable import PrettyTable
-
 from scraping.scrapy_lines_bytes import get_lines_bytes
 from tqdm import tqdm
 
@@ -42,5 +39,4 @@ def create_pettyTable(repo, data_full, self):
     table.align = 'l'
     # retorna a tabela ordenada pela coluna size
 
-    print('\n')
     print(table.get_string(sortby='Lines'))

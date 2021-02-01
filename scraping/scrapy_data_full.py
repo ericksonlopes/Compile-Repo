@@ -1,5 +1,3 @@
-from time import sleep
-
 from scraping.scrapy_tree import get_data_page
 from tqdm import tqdm
 
