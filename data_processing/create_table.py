@@ -41,4 +41,6 @@ def create_pettyTable(repo, data_full, self):
     # alinha todos os itens das colunas
     table.align = 'l'
     # retorna a tabela ordenada pela coluna size
-    print(table.get_string(sortby='Size'))
+
+    print('\n')
+    print(table.get_string(sortby='Lines'))

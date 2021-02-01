@@ -14,10 +14,12 @@ class CompileRepo:
 
         # percorre cara repositorio
         for repo in self.repos:
-            # Realiza a
+            # Realiza a procura de todos os arquivos retornando em um dicionario
             data = get_data_repository_full(repo, self)
-            # Concoca a função que cria a tabela e exibe a mesma
+            # convoca a função que cria a tabela e exibe a mesma
             create_pettyTable(repo, data, self)
+
+            print('\n' * 2)
 
 
 if __name__ == '__main__':

@@ -11,6 +11,7 @@ def get_data_repository_full(url, self):
     :param url:
     :return:
     """
+    print('\n')
     print(f"Buscando dados do repositório '{url.split('/')[1]}' de {url.split('/')[0]}")
     # esta pasta contera todas as pastas que for preciso verificar, iniciando com o diretorio principal
     urls_directories = [url]
@@ -31,8 +32,8 @@ def get_data_repository_full(url, self):
             collected_data = get_data_page(self.url_git + '/' + url_directory, page_main)
 
             # percorre todos os dados coletados
-            for data in tqdm(collected_data, desc='Coletando dados'):
-                sleep(0.01)
+            for data in tqdm(collected_data, desc='Encontrado Arquivos'):
+
                 # adiciona cada item coletado dentro do
                 data_full.append(data)
                 # se o tipo do arquivo for
@@ -47,5 +48,4 @@ def get_data_repository_full(url, self):
         urls_directories = subdirectories
 
     # remtorna todos os dados
-
     return data_full
