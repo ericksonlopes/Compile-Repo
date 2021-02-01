@@ -15,7 +15,8 @@ def get_lines_bytes(url):
         # info: Fazer-> Converter tudo para bytes #
         # retorna um dict com os itens coletados com o split
 
-        return {formated[1]: int(formated[0]), formated[-1]: formated[-2]}
+        return [int(formated[0]), f'{formated[-1]} {formated[-2]}']
     else:
         # retorna um dict com uma chave com o valor 0 para linhas e a quantidade de dados
-        return {'lines': 0, formated[1]: formated[0]}
+        # return {'lines': 0, formated[1]: formated[0]}
+        return [0, f'{formated[1]} {formated[0]}']
