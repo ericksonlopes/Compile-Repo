@@ -16,10 +16,10 @@ Insira dentro do arquivo 'repositories.txt' os repositórios que deseja analisar
 Erickson-lopes-dev/Compile-Repo
 ```
 
-em seguida execute o arquivo main:
+Em seguida execute o arquivo main:
 ```
-py main.py
-
+python3 main.py
 ```
+Resultado: 
 ![image](https://user-images.githubusercontent.com/62525983/106611192-6d40a000-6546-11eb-952e-7cca893bfaa6.png)
 
