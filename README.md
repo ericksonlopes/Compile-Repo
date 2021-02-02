@@ -1,4 +1,5 @@
 # <h1>Compile-Repo</h1>
+<p>O projeto em si procura todos os arquivos em cada repositório indicado e exibe cada um deles em uma tabela onde se é apresentado o  caminho, nome do arquivo, extensão, quantidade de linhas e tamanho do arquivo.</p>
 
 
 ## Instalação
