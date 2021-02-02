@@ -1,6 +1,8 @@
 # <h1>Compile-Repo</h1>
 <p>O projeto em si procura todos os arquivos em cada repositório indicado e exibe cada um deles em uma tabela onde se é apresentado o  caminho, nome do arquivo, extensão, quantidade de linhas e tamanho do arquivo.</p>
 
+<p>A versão utilizada para desenvolvimento foi Python 3.6.4, porém qualquer versão do python 3 pode ser utilizada.</p>
+
 
 ## Instalação
 
