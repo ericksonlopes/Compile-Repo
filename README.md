@@ -22,11 +22,13 @@ psf/requests
 ```
 
 Em seguida execute o arquivo main:
-```
+
 mac/linux
+```
   python3 main.py
-  
+  ```
  windows
+ ```
   py main.py
 ```
 Resultado: 
