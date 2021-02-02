@@ -1,7 +1,8 @@
 # Compile-Repo
 
-## instalação
+## Instalação
 
+No cmd:
 ```
 git clone https://github.com/Erickson-lopes-dev/Compile-Repo
 cd Compile-Repo
