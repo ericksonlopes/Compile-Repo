@@ -10,7 +10,7 @@ def get_data_repository_full(url, self):
     :return:
     """
     print('\n')
-    print(f"Buscando dados do repositório '{url.split('/')[1]}' de {url.split('/')[0]}")
+    print(f"Buscando dados do repositório '{url.split('/')[1]}' do usuário '{url.split('/')[0]}'")
     # esta pasta contera todas as pastas que for preciso verificar, iniciando com o diretorio principal
     urls_directories = [url]
     # print('lista de diretorios para pesquisar:', urls_directories)
