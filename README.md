@@ -1,5 +1,5 @@
 # Compile-Repo
-[![pypi supported versions](https://img.shields.io/pypi/pyversions/kubernetes.svg)](https://pypi.python.org/pypi/kubernetes)
+[![pypi supported versions](https://img.shields.io/pypi/pyversions/kubernetes.svg)]
 ## Installation
 
 From source:
