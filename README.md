@@ -4,6 +4,8 @@
 
 ## Instalação
 
+Instalar [Python 3](https://www.python.org/download/).
+
 No cmd:
 ```
 git clone https://github.com/Erickson-lopes-dev/Compile-Repo
