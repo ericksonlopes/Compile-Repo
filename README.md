@@ -23,7 +23,7 @@ psf/requests
 
 Em seguida execute o arquivo main:
 ```
-  py main.py
+py main.py
 ```
 
 Resultado: 
