@@ -7,8 +7,8 @@ No cmd:
 git clone https://github.com/Erickson-lopes-dev/Compile-Repo
 cd Compile-Repo
 pip install -r requeriments.txt
-
 ```
+
 ## Exemplo
 
 Insira dentro do arquivo 'repositories.txt' os repositórios que deseja analisar
