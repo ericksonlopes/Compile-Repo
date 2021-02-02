@@ -11,9 +11,12 @@ pip install -r requeriments.txt
 ```
 ## Exemplo
 
-```
 Insira dentro do arquivo 'repositories.txt' os repositórios que deseja analisar
+```
+Erickson-lopes-dev/Compile-Repo
+```
 
+```
 em seguida execute o arquivo main:
 py main.py
 
