@@ -15,7 +15,7 @@ cd Compile-Repo
 pip install -r requeriments.txt
 ```
 
-## Exemplo
+## Exemplo de Funcionamento
 
 Insira dentro do arquivo 'repositories.txt' os repositórios que deseja analisar:
 ```
