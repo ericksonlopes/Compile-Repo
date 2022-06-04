@@ -31,7 +31,7 @@ class CompileRepo:
     @classmethod
     def html_convert_bs4(cls, url) -> BeautifulSoup:
         """
-            Função Converte o conteudo HTML recebido pela requisição em objetos python, Retornando esse obj
+        Função Converte o conteudo HTML recebido pela requisição em objetos python, Retornando esse obj
         :param url: -> url completa
         :return:
         """
@@ -42,8 +42,7 @@ class CompileRepo:
 
     def get_files(self) -> None:
         """
-
-        busca
+        captura todos os dados necessarios (diretorios e arquivos)
         :return:
         """
         directorys = [self.__repository]
