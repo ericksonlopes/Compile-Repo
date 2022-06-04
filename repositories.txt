@@ -1,4 +1,0 @@
-Erickson-lopes-dev/Compile-Repo
-jazzband/prettytable
-tqdm/tqdm
-psf/requests
