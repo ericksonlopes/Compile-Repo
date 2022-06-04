@@ -40,7 +40,7 @@ class CompileRepo:
         # beautifulSoup transforma um documento HTML complexo em uma árvore complexa de objetos Python.
         return BeautifulSoup(req_get.content, 'html.parser')  # retornando o obj
 
-    def get_files(self) -> None:
+    def get_infos(self) -> None:
         """
         captura todos os dados necessarios (diretorios e arquivos)
         :return:
@@ -73,15 +73,3 @@ class CompileRepo:
                         print(error)
 
                 directorys = sub_directorys
-
-
-if __name__ == '__main__':
-    cr = CompileRepo('https://github.com/Erickson-lopes-dev/Alexa_Skills')
-    cr.get_files()
-
-    for file in cr.files_list:
-        print(file)
-
-    print()
-    for directory in cr.directory_list:
-        print(directory)
