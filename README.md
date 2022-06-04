@@ -12,22 +12,26 @@ No cmd:
 ```
 git clone https://github.com/Erickson-lopes-dev/Compile-Repo
 cd Compile-Repo
-pip install -r requeriments.txt
+pip install -r requirements.txt
 ```
 
 ## Exemplo de Funcionamento
 
 Insira dentro do arquivo 'repositories.txt' os repositórios que deseja analisar:
-```
-Erickson-lopes-dev/Compile-Repo
-jazzband/prettytable
-tqdm/tqdm
-psf/requests
-```
+
 
 Em seguida execute o arquivo main:
-```
-py main.py
+```python
+cr = CompileRepo(url)
+
+# Executa o código de busca
+cr.get_infos()
+
+list_files = cr.files_list
+print(list_files, '\n')
+
+list_directories = cr.directory_list
+print(list_directories, '\n')
 ```
 
 Resultado: 

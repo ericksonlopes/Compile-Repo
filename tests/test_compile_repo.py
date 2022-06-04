@@ -1,4 +1,4 @@
-from main import CompileRepo
+from compile_repo import CompileRepo
 import pytest
 
 

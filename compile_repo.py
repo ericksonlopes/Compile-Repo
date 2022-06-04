@@ -12,7 +12,7 @@ class RepoData:
 
 class CompileRepo:
     def __init__(self, repository: str):
-        self.__repository = repository
+        self.__repository = 'https://github.com/' + repository
         self.__files_list = []
         self.__directory_list = []
 
