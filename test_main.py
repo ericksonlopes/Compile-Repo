@@ -12,5 +12,8 @@ def test_get_infos(url):
     # Executa o código de busca
     cr.get_infos()
 
-    print(cr.files_list, '\n')
-    print(cr.directory_list, '\n')
+    list_files = cr.files_list
+    print(list_files, '\n')
+
+    list_directories = cr.directory_list
+    print(list_directories, '\n')
