@@ -1,12 +1,16 @@
 # <h1>Compile-Repo</h1>
+
+![Star](https://img.shields.io/github/stars/Erickson-lopes-dev/Compile-Repo?style=social) [![LinkedIn](https://img.shields.io/badge/LinkedIn-Erickson_Lopes%20-blue)](https://www.linkedin.com/in/ericksonlopes/)
+
 <p>O projeto em si procura todos os arquivos em cada repositório indicado e exibe cada um deles em uma tabela onde se é apresentado o  caminho, nome do arquivo, extensão, quantidade de linhas e tamanho do arquivo.</p>
 
 <p>A versão utilizada para desenvolvimento foi Python 3.6.4, porém qualquer versão do python 3 pode ser utilizada.</p>
 
 
-## Instalação
+## Instalação 
 
-Instalar [Python 3](https://www.python.org/download/).
+[![Supported Python Versions](https://img.shields.io/pypi/pyversions/rich/10.11.0)](https://www.python.org/download/)
+
 
 No cmd:
 ```
