@@ -1,13 +1,9 @@
-from dataclasses import dataclass
-from bs4 import BeautifulSoup
+from typing import List
+
 import requests
+from bs4 import BeautifulSoup
 
-
-@dataclass
-class RepoData:
-    name: str
-    type: str
-    link: str
+from utils import DirectoryModel, FileModel
 
 
 class CompileRepo:
@@ -17,15 +13,15 @@ class CompileRepo:
         self.__directory_list = []
 
     @property
-    def repository(self):
+    def repository(self) -> str:
         return self.__repository
 
     @property
-    def files_list(self):
+    def files_list(self) -> List[FileModel]:
         return self.__files_list
 
     @property
-    def directory_list(self):
+    def directory_list(self) -> List[DirectoryModel]:
         return self.__directory_list
 
     @classmethod
@@ -42,10 +38,11 @@ class CompileRepo:
 
     def get_infos(self) -> None:
         """
-        captura todos os dados necessarios (diretorios e arquivos)
+        Captura todos os dados necessarios (diretorios e arquivos)
         :return:
         """
         directorys = [self.__repository]
+
         while len(directorys) > 0:
             for link in directorys:
                 sub_directorys = []
@@ -57,19 +54,16 @@ class CompileRepo:
 
                 for row in list_itens:
 
-                    try:
-                        name_ = row.a['title']
+                    name_ = row.a['title']
 
-                        if name_ != "Go to parent directory":
-                            type_ = row.svg['aria-label']
-                            link_ = 'https://github.com' + str(row.span.a['href'])
+                    if name_ != "Go to parent directory":
+                        type_ = row.svg['aria-label']
+                        link_ = 'https://github.com' + str(row.span.a['href'])
 
-                            if 'Directory' == type_:
-                                sub_directorys.append(link_)
-                                self.__directory_list.append(RepoData(type=type_, link=link_, name=name_))
-                            else:
-                                self.__files_list.append(RepoData(type=type_, link=link_, name=name_))
-                    except Exception as error:
-                        print(error)
+                        if 'Directory' == type_:
+                            sub_directorys.append(link_)
+                            self.__directory_list.append(DirectoryModel(link=link_, name=name_))
+                        else:
+                            self.__files_list.append(FileModel(type=type_, link=link_, name=name_))
 
                 directorys = sub_directorys
