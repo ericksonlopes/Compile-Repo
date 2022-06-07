@@ -15,7 +15,7 @@ cd Compile-Repo
 pip install -r requirements.txt
 ```
 
-## Exemplo de Funcionamento
+## Exemplo de Funcionamento da classe
 
 Insira dentro do arquivo 'repositories.txt' os repositórios que deseja analisar:
 
@@ -33,7 +33,3 @@ print(list_files, '\n')
 list_directories = cr.directory_list
 print(list_directories, '\n')
 ```
-
-Resultado: 
-![image](https://user-images.githubusercontent.com/62525983/106611192-6d40a000-6546-11eb-952e-7cca893bfaa6.png)
-
