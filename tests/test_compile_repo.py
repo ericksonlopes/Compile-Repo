@@ -3,8 +3,8 @@ import pytest
 
 
 @pytest.mark.parametrize('url', [
-    'https://github.com/Erickson-lopes-dev/Alexa_Skills',
-    'https://github.com/Erickson-lopes-dev/Words-In-Songs'
+    'Erickson-lopes-dev/Alexa_Skills',
+    'Erickson-lopes-dev/Words-In-Songs'
 ])
 def test_get_infos(url):
     cr = CompileRepo(url)

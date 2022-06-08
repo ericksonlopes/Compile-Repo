@@ -16,7 +16,7 @@ class DirectoryModel:
     type: str = "Directory"
 
 
-@dataclass
+@dataclass(frozen=True)
 class ReturnModel:
     repository: str
     files: List[FileModel]

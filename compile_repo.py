@@ -28,8 +28,8 @@ class CompileRepo:
     def html_convert_bs4(cls, url) -> BeautifulSoup:
         """
         Função Converte o conteudo HTML recebido pela requisição em objetos python, Retornando esse obj
-        :param url: -> url completa
-        :return:
+        :param url: url completa
+        :return: BeautifulSoup
         """
         # Faz uma requisição trazendo o html
         req_get = requests.get(url)
