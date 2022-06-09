@@ -3,7 +3,7 @@ from typing import List
 import requests
 from bs4 import BeautifulSoup
 
-from utils import DirectoryModel, FileModel
+from utils import DirectoryModel, FileModel, FullDataRepo
 
 
 class CompileRepo:
@@ -76,7 +76,7 @@ class CompileRepo:
 
                 directorys = sub_directorys
 
-    def get_info_file(self, file: FileModel):
+    def get_info_file(self, file: FileModel) -> FileModel:
         # Para acessar outra rota com as informações
         replace_link: str = file.link.replace('blob', 'blame')
 
@@ -86,14 +86,12 @@ class CompileRepo:
         # Recebe o texto
         file_info: str = req_file.find(class_='file-info').text
 
-        # limpa os dados
+        # Limpa os dados
         file_cute: List[str] = file_info.strip().replace('\n', '').split()
 
-        lines = file_cute[1]
-        size = f"{file_cute[-2]} {file_cute[-1]}"
-
-        file.lines = lines
-        file.size = size
+        # Atribui os valores
+        file.lines = int(file_cute[1])
+        file.size = f"{file_cute[-2]} {file_cute[-1]}"
 
         # Adiciona a extensão
         if '.' in file.name:
@@ -102,3 +100,10 @@ class CompileRepo:
             file.extension = file.name
 
         return file
+
+    def return_full_data_repo(self) -> FullDataRepo:
+        return FullDataRepo(
+            repository=self.__repository,
+            files=self.__files_list,
+            directories=self.__directory_list
+        )

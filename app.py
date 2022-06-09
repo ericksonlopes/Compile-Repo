@@ -3,7 +3,6 @@ import json
 from flask import Flask, jsonify, request
 
 from compile_repo import CompileRepo
-from utils import ReturnModel
 
 app = Flask('__name__')
 
@@ -24,18 +23,14 @@ def route_test() -> jsonify:
         # Executa o código de busca
         cr.get_diretories_and_files()
 
-        # Armazena o link do repositório
-        repository = cr.repository
-        # Armazena os arquivos
-        list_files = cr.files_list
-        # Armazena os diretórios
-        list_directories = cr.directory_list
+        # recebe o objeto com todos os dados
+        data_full = cr.return_full_data_repo()
 
     except Exception as error:
         return jsonify({'erro': f"{str(error)} {str(type(error))}"}), 400
 
     else:
-        return jsonify(ReturnModel(repository=repository, files=list_files, directories=list_directories)), 200
+        return jsonify(data_full), 200
 
 
 if __name__ == '__main__':

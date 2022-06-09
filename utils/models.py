@@ -7,9 +7,9 @@ class FileModel:
     name: str
     link: str
     type: str
-    extension: str = None
-    lines: int = None
     size: str = None
+    lines: int = None
+    extension: str = None
 
 
 @dataclass(frozen=True)
@@ -20,7 +20,7 @@ class DirectoryModel:
 
 
 @dataclass(frozen=True)
-class ReturnModel:
+class FullDataRepo:
     repository: str
     files: List[FileModel]
     directories: List[DirectoryModel]
