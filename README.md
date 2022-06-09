@@ -27,7 +27,7 @@ Em seguida execute o arquivo main:
 cr = CompileRepo(url)
 
 # Executa o código de busca
-cr.get_infos()
+cr.get_diretories_and_files()
 
 # Armazena os arquivos
 list_files = cr.files_list

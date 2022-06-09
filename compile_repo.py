@@ -36,7 +36,7 @@ class CompileRepo:
         # beautifulSoup transforma um documento HTML complexo em uma árvore complexa de objetos Python.
         return BeautifulSoup(req_get.content, 'html.parser')  # retornando o obj
 
-    def get_infos(self) -> None:
+    def get_diretories_and_files(self) -> None:
         """
         Captura todos os dados necessarios (diretorios e arquivos)
         :return:
@@ -64,6 +64,14 @@ class CompileRepo:
                             sub_directorys.append(link_)
                             self.__directory_list.append(DirectoryModel(link=link_, name=name_))
                         else:
-                            self.__files_list.append(FileModel(type=type_, link=link_, name=name_))
+                            file_model = FileModel(type=type_, link=link_, name=name_)
+                            self.get_info_files(file_model)
+                            self.__files_list.append(file_model)
 
                 directorys = sub_directorys
+
+    def get_info_files(self, file: FileModel):
+        req_file = self.html_convert_bs4(file.link.replace('blob', 'blame'))
+        file_info = req_file.find(class_='file-info').text
+
+        print(''.join(file_info.strip().split('\n')))

@@ -22,7 +22,7 @@ def route_test() -> jsonify:
         cr = CompileRepo(json_data['repository'])
 
         # Executa o código de busca
-        cr.get_infos()
+        cr.get_diretories_and_files()
 
         # Armazena o link do repositório
         repository = cr.repository
