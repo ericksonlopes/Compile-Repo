@@ -2,11 +2,14 @@ from dataclasses import dataclass
 from typing import List
 
 
-@dataclass(frozen=True)
+@dataclass
 class FileModel:
     name: str
     link: str
     type: str
+    extension: str = None
+    lines: int = None
+    size: str = None
 
 
 @dataclass(frozen=True)

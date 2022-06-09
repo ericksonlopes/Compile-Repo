@@ -65,13 +65,40 @@ class CompileRepo:
                             self.__directory_list.append(DirectoryModel(link=link_, name=name_))
                         else:
                             file_model = FileModel(type=type_, link=link_, name=name_)
-                            self.get_info_files(file_model)
+
+                            try:
+                                new_file_model = self.get_info_file(file_model)
+                                file_model = new_file_model
+                            except Exception:
+                                pass
+
                             self.__files_list.append(file_model)
 
                 directorys = sub_directorys
 
-    def get_info_files(self, file: FileModel):
-        req_file = self.html_convert_bs4(file.link.replace('blob', 'blame'))
-        file_info = req_file.find(class_='file-info').text
+    def get_info_file(self, file: FileModel):
+        # Para acessar outra rota com as informações
+        replace_link: str = file.link.replace('blob', 'blame')
 
-        print(''.join(file_info.strip().split('\n')))
+        # Recebe o objeto bs4 para scraping
+        req_file: BeautifulSoup = self.html_convert_bs4(replace_link)
+
+        # Recebe o texto
+        file_info: str = req_file.find(class_='file-info').text
+
+        # limpa os dados
+        file_cute: List[str] = file_info.strip().replace('\n', '').split()
+
+        lines = file_cute[1]
+        size = f"{file_cute[-2]} {file_cute[-1]}"
+
+        file.lines = lines
+        file.size = size
+
+        # Adiciona a extensão
+        if '.' in file.name:
+            file.extension = file.name.split('.')[-1]
+        else:
+            file.extension = file.name
+
+        return file

@@ -4,10 +4,10 @@ from compile_repo import CompileRepo
 
 
 @pytest.mark.parametrize('url', [
-    "angular/angular"
+    # "angular/angular"
     # 'Erickson-lopes-dev/Alexa_Skills',
     # 'Erickson-lopes-dev/Words-In-Songs',
-    # "Erickson-lopes-dev/Compile-Repo"
+    "Erickson-lopes-dev/Compile-Repo"
 ])
 def test_get_infos(url):
     cr = CompileRepo(url)
