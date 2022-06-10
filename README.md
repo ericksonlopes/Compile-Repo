@@ -7,7 +7,10 @@ Imagine uma API que liste para você todos os diretórios e arquivos com suas in
 de linhas...
 Este é exatamente o propósito dessa API.
 
-- GET - https://compile-repo.herokuapp.com/
+Basta realizar uma requisição via GET, um json com a chave igual a "repository" e o valor correspondente ao repositório (Usuario/Repositório)
+
+
+- GET - https://compile-repo.herokuapp.com/repo
 
 ```json
 // user/repository
@@ -58,6 +61,8 @@ No cmd:
 git clone https://github.com/Erickson-lopes-dev/Compile-Repo
 cd Compile-Repo
 pip install -r requirements.txt
+
+python app.run
 ```
 
 ## Exemplo de Funcionamento da Classe
@@ -81,3 +86,7 @@ print(repo_data.directories)
 print(repo_data.branch)
 
 ```
+
+## Deploy
+![Heroku](https://img.shields.io/badge/-Heroku-430098?&logo=Heroku&logoColor=FFFFFF) 
+![Gunicorn](https://img.shields.io/badge/-Gunicorn-499848?&logo=gunicorn&logoColor=FFFFFF)

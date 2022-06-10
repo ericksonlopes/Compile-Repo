@@ -1,6 +1,6 @@
 import json
 
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, redirect
 
 from compile_repo import CompileRepo
 
@@ -8,7 +8,12 @@ app = Flask('__name__')
 
 
 @app.route('/', methods=['GET'])
-def route_test() -> jsonify:
+def redireciona() -> jsonify:
+    return redirect('https://github.com/Erickson-lopes-dev/Compile-Repo', code=302)
+
+
+@app.route('/repo', methods=['GET'])
+def repo() -> jsonify:
     try:
         # Armazena a data no json
         json_data = json.loads(request.data)
