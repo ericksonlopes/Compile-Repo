@@ -7,8 +7,8 @@ Imagine uma API que liste para você todos os diretórios e arquivos com suas in
 de linhas...
 Este é exatamente o propósito dessa API.
 
-Basta realizar uma requisição via GET, um json com a chave igual a "repository" e o valor correspondente ao repositório (Usuario/Repositório)
-
+Basta realizar uma requisição via GET, um json com a chave igual a "repository" e o valor correspondente ao
+repositório (Usuario/Repositório)
 
 - GET - https://compile-repo.herokuapp.com/repo
 
@@ -88,5 +88,6 @@ print(repo_data.branch)
 ```
 
 ## Deploy
-![Heroku](https://img.shields.io/badge/-Heroku-430098?&logo=Heroku&logoColor=FFFFFF) 
+
+![Heroku](https://img.shields.io/badge/-Heroku-430098?&logo=Heroku&logoColor=FFFFFF)
 ![Gunicorn](https://img.shields.io/badge/-Gunicorn-499848?&logo=gunicorn&logoColor=FFFFFF)
