@@ -20,9 +20,6 @@ def route_test() -> jsonify:
         # Instância da classe
         cr = CompileRepo(json_data['repository'])
 
-        # Executa o código de busca
-        cr.get_diretories_and_files()
-
         # recebe o objeto com todos os dados
         data_full = cr.return_full_data_repo()
 

@@ -13,6 +13,9 @@ class CompileRepo:
         self.__directory_list: List[DirectoryModel] = []
         self.__branch: str = ''
 
+        # Executa funções que traz os dados
+        self.__get_diretories_and_files()
+
     @property
     def repository(self) -> str:
         return self.__repository
@@ -25,8 +28,12 @@ class CompileRepo:
     def directory_list(self) -> List[DirectoryModel]:
         return self.__directory_list
 
+    @property
+    def branch(self):
+        return self.__branch
+
     @classmethod
-    def html_convert_bs4(cls, url) -> BeautifulSoup:
+    def __html_convert_bs4(cls, url) -> BeautifulSoup:
         """
         Função Converte o conteudo HTML recebido pela requisição em objetos python, Retornando esse obj
         :param url: url completa
@@ -37,7 +44,7 @@ class CompileRepo:
         # beautifulSoup transforma um documento HTML complexo em uma árvore complexa de objetos Python.
         return BeautifulSoup(req_get.content, 'html.parser')  # retornando o obj
 
-    def get_diretories_and_files(self) -> None:
+    def __get_diretories_and_files(self) -> None:
         """
         Captura todos os dados necessarios (diretorios e arquivos)
         :return:
@@ -47,7 +54,7 @@ class CompileRepo:
         while len(directorys) > 0:
             for link in directorys:
                 sub_directorys = []
-                req = self.html_convert_bs4(link)
+                req = self.__html_convert_bs4(link)
 
                 # Captura o nome da branch
                 self.__branch = req.find(class_='btn css-truncate').text.strip('\n')
@@ -78,7 +85,7 @@ class CompileRepo:
                             file_model = FileModel(type=type_, link=link_, name=name_, path=path_file)
 
                             try:
-                                new_file_model = self.get_size_lines_on_file(file_model)
+                                new_file_model = self.__get_size_lines_on_file(file_model)
                                 file_model = new_file_model
                             except AttributeError:
                                 pass
@@ -97,7 +104,7 @@ class CompileRepo:
                 # Transforma os sub_diretórios em diretórios para serem explorados
                 directorys = sub_directorys
 
-    def get_size_lines_on_file(self, file: FileModel) -> FileModel:
+    def __get_size_lines_on_file(self, file: FileModel) -> FileModel:
         """
         Extrai os dados da url presente no objeto
         :param file: FileModel
@@ -107,7 +114,7 @@ class CompileRepo:
         replace_link: str = file.link.replace('blob', 'blame')
 
         # Recebe o objeto bs4 para scraping
-        req_file: BeautifulSoup = self.html_convert_bs4(replace_link)
+        req_file: BeautifulSoup = self.__html_convert_bs4(replace_link)
 
         # Recebe o texto
         file_info: str = req_file.find(class_='file-info').text
@@ -129,5 +136,6 @@ class CompileRepo:
         return FullDataRepo(
             repository=self.__repository,
             files=self.__files_list,
-            directories=self.__directory_list
+            directories=self.__directory_list,
+            branch=self.__branch
         )

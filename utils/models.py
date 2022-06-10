@@ -25,5 +25,6 @@ class DirectoryModel(PropertyModel):
 @dataclass
 class FullDataRepo:
     repository: str
+    branch: str
     files: List[FileModel]
     directories: List[DirectoryModel]
