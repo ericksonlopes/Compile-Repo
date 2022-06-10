@@ -3,12 +3,9 @@
 [![Supported Python Versions](https://img.shields.io/pypi/pyversions/rich/10.11.0)](https://www.python.org/download/)
 ![Str](https://img.shields.io/github/stars/Erickson-lopes-dev/Compile-Repo?style=social) [![LinkedIn](https://img.shields.io/badge/LinkedIn-Erickson_Lopes%20-blue)](https://www.linkedin.com/in/ericksonlopes/)
 
-Imagine uma API que liste para você todos os diretórios e arquivos com suas informações como.. path, tamanho, quantidade
-de linhas...
-Este é exatamente o propósito dessa API.
+Imagine uma API que te liste todos os diretórios e arquivos com suas informações como. path, tamanho, quantidade de linhas... Este é exatamente o propósito dessa API.
 
-Basta realizar uma requisição via GET, um json com a chave igual a "repository" e o valor correspondente ao
-repositório (Usuario/Repositório)
+Basta realizar uma requisição via GET, um json com a chave igual a "repository" e o valor correspondente ao repositório (Usuário/Repositório)
 
 - GET - https://compile-repo.herokuapp.com/repo
 
