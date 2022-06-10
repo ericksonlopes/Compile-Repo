@@ -3,23 +3,26 @@ from typing import List
 
 
 @dataclass
-class FileModel:
+class PropertyModel:
+    path: str
     name: str
     link: str
     type: str
+
+
+@dataclass
+class FileModel(PropertyModel):
     size: str = None
     lines: int = None
     extension: str = None
 
 
-@dataclass(frozen=True)
-class DirectoryModel:
-    name: str
-    link: str
+@dataclass
+class DirectoryModel(PropertyModel):
     type: str = "Directory"
 
 
-@dataclass(frozen=True)
+@dataclass
 class FullDataRepo:
     repository: str
     files: List[FileModel]

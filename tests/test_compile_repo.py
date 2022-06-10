@@ -20,3 +20,4 @@ def test_class_compile_repo(url):
     assert isinstance(cr.files_list, list)
     assert isinstance(cr.directory_list, list)
     assert isinstance(cr.return_full_data_repo(), FullDataRepo)
+    print(cr.return_full_data_repo(), '\n')

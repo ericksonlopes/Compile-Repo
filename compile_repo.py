@@ -8,9 +8,10 @@ from utils import DirectoryModel, FileModel, FullDataRepo
 
 class CompileRepo:
     def __init__(self, repository: str):
-        self.__repository = 'https://github.com/' + repository
-        self.__files_list = []
-        self.__directory_list = []
+        self.__repository: str = 'https://github.com/' + repository
+        self.__files_list: List[FileModel] = []
+        self.__directory_list: List[DirectoryModel] = []
+        self.__branch: str = ''
 
     @property
     def repository(self) -> str:
@@ -48,8 +49,13 @@ class CompileRepo:
                 sub_directorys = []
                 req = self.html_convert_bs4(link)
 
+                # Captura o nome da branch
+                self.__branch = req.find(class_='btn css-truncate').text.strip('\n')
+
+                # Frid que localiza todos os arquivos
                 grid_itens = req.find(class_='js-details-container Details')
 
+                # Separa todas as linhas
                 list_itens = grid_itens.find_all(role='row')[1:]
 
                 for row in list_itens:
@@ -60,23 +66,43 @@ class CompileRepo:
                         type_ = row.svg['aria-label']
                         link_ = 'https://github.com' + str(row.span.a['href'])
 
-                        if 'Directory' == type_:
+                        if 'Directory' == type_:  # diretório
+                            path_dire = link_.split(f'/tree/{self.__branch}')[-1].replace(name_, '')
+                            self.__directory_list.append(DirectoryModel(link=link_, name=name_, path=path_dire))
+
+                            # Adiciona um subdiretório na lista
                             sub_directorys.append(link_)
-                            self.__directory_list.append(DirectoryModel(link=link_, name=name_))
-                        else:
-                            file_model = FileModel(type=type_, link=link_, name=name_)
+
+                        else:  # arquivo
+                            path_file = link_.split(f'/blob/{self.__branch}')[-1].replace(name_, '')
+                            file_model = FileModel(type=type_, link=link_, name=name_, path=path_file)
 
                             try:
-                                new_file_model = self.get_info_file(file_model)
+                                new_file_model = self.get_size_lines_on_file(file_model)
                                 file_model = new_file_model
-                            except Exception:
+                            except AttributeError:
                                 pass
+                            except ValueError:
+                                pass
+
+                            else:
+                                # Adiciona a extensão
+                                if '.' in file_model.name:
+                                    file_model.extension = file_model.name.split('.')[-1]
+                                else:
+                                    file_model.extension = file_model.name
 
                             self.__files_list.append(file_model)
 
+                # Transforma os sub_diretórios em diretórios para serem explorados
                 directorys = sub_directorys
 
-    def get_info_file(self, file: FileModel) -> FileModel:
+    def get_size_lines_on_file(self, file: FileModel) -> FileModel:
+        """
+        Extrai os dados da url presente no objeto
+        :param file: FileModel
+        :return:
+        """
         # Para acessar outra rota com as informações
         replace_link: str = file.link.replace('blob', 'blame')
 
@@ -93,15 +119,13 @@ class CompileRepo:
         file.lines = int(file_cute[1])
         file.size = f"{file_cute[-2]} {file_cute[-1]}"
 
-        # Adiciona a extensão
-        if '.' in file.name:
-            file.extension = file.name.split('.')[-1]
-        else:
-            file.extension = file.name
-
         return file
 
     def return_full_data_repo(self) -> FullDataRepo:
+        """
+        Retorna todos os dados coletados em um objeto
+        :return: FullDataRepo
+        """
         return FullDataRepo(
             repository=self.__repository,
             files=self.__files_list,
