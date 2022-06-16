@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from datetime import date
 from typing import List
 
 
@@ -23,8 +24,16 @@ class DirectoryModel(PropertyModel):
 
 
 @dataclass
-class FullDataRepo:
+class FullDataModel:
     repository: str
     branch: str
     files: List[FileModel]
     directories: List[DirectoryModel]
+
+
+@dataclass
+class BranchModel:
+    name: str
+    path: str
+    update_by: str
+    update_date: date
