@@ -1,8 +1,6 @@
-import json
-
 from flask import Flask, jsonify, request, redirect
 
-from compile_repo import CompileRepo
+from compile_repo import CompileRepo, BranchsRepo
 
 app = Flask('__name__')
 
@@ -12,11 +10,11 @@ def redireciona() -> jsonify:
     return redirect('https://github.com/Erickson-lopes-dev/Compile-Repo', code=302)
 
 
-@app.route('/repo', methods=['GET'])
+@app.route('/repo', methods=['POST'])
 def repo() -> jsonify:
     try:
         # Armazena a data no json
-        json_data = json.loads(request.data)
+        json_data = request.get_json()
 
         # Verifica se o field existe no json
         if 'repository' not in json_data.keys():
@@ -24,6 +22,11 @@ def repo() -> jsonify:
 
         # Instância da classe
         cr = CompileRepo(json_data['repository'])
+
+        if 'branch' in json_data.keys():
+            cr.branch = json_data['branch']
+
+        cr.get_diretories_and_files()
 
         # recebe o objeto com todos os dados
         data_full = cr.return_full_data_repo()
@@ -33,6 +36,24 @@ def repo() -> jsonify:
 
     else:
         return jsonify(data_full), 200
+
+
+@app.route('/get-branches', methods=['POST'])
+def get_branchs() -> jsonify:
+    try:
+        # Armazena a data no json
+        json_data = request.get_json()
+
+        # Verifica se o field existe no json
+        if 'repository' not in json_data.keys():
+            return jsonify({'erro': f"Field 'repository' not found"}), 400
+
+        branchs = BranchsRepo(json_data['repository']).get_all_branchs()
+
+    except Exception as error:
+        return jsonify({'erro': f"{str(error)} {str(type(error))}"}), 400
+    else:
+        return jsonify(branchs), 200
 
 
 if __name__ == '__main__':
