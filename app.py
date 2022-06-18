@@ -11,7 +11,7 @@ def redireciona() -> jsonify:
     return redirect('https://github.com/Erickson-lopes-dev/Compile-Repo', code=302)
 
 
-@app.route('/repo', methods=['POST'])
+@app.route('/repofd', methods=['POST'])
 def get_files_diretories() -> jsonify:
     try:
         # Armazena a data no json
@@ -37,7 +37,7 @@ def get_files_diretories() -> jsonify:
         return jsonify(data_full), 200
 
 
-@app.route('/get-branches', methods=['POST'])
+@app.route('/branchs', methods=['POST'])
 def get_branchs() -> jsonify:
     try:
         # Armazena a data no json
