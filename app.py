@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request, redirect
 
-from compile_repo import CompileRepo, BranchsRepo
+from compile_repo import CompileRepo, BranchsRepo, ReleasesRepo
 from utils import *
 
 app = Flask('__name__')
@@ -27,10 +27,8 @@ def get_files_diretories() -> jsonify:
         if 'branch' in json_data.keys():
             cr.branch = json_data['branch']
 
-        cr.get_diretories_and_files()
-
         # recebe o objeto com todos os dados
-        data_full: FullDataModel = cr.return_full_data_repo()
+        data_full: FullDataModel = cr.get_diretories_and_files()
 
     except Exception as error:
         return jsonify({'erro': f"{str(error)} {str(type(error))}"}), 400
@@ -57,7 +55,7 @@ def get_branchs() -> jsonify:
         return jsonify(branchs), 200
 
 
-@app.route('/releases')
+@app.route('/releases', methods=['POST'])
 def get_releases() -> jsonify:
     try:
         # Armazena a data no json
@@ -67,15 +65,15 @@ def get_releases() -> jsonify:
         if 'repository' not in json_data.keys():
             return jsonify({'erro': f"Field 'repository' not found"}), 400
 
-        releases = []
+        releases: List[ReleaseModel] = ReleasesRepo(json_data['repository']).get_releases()
 
     except Exception as error:
         return jsonify({'erro': f"{str(error)} {str(type(error))}"}), 400
     else:
-        return jsonify({}), 200
+        return jsonify(releases), 200
 
 
-@app.route('/tags')
+@app.route('/tags', methods=['POST'])
 def get_tags() -> jsonify:
     try:
         # Armazena a data no json

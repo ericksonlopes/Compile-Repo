@@ -14,14 +14,9 @@ from utils import FullDataModel
 ])
 def test_class_compile_repo(url):
     cr = CompileRepo(url)
-    cr.get_diretories_and_files()
 
-    assert isinstance(cr.repository, str)
-    assert isinstance(cr.files_list, list)
-    assert isinstance(cr.directory_list, list)
+    assert isinstance(cr.get_diretories_and_files(), FullDataModel)
     assert isinstance(cr.branch, str)
-    assert isinstance(cr.return_full_data_repo(), FullDataModel)
-    print(cr.return_full_data_repo(), '\n')
 
 
 @pytest.mark.parametrize('url', [
