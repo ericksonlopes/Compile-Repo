@@ -1,37 +1,16 @@
-from datetime import datetime
-
 import requests
 from bs4 import BeautifulSoup
 
 from utils import *
 
 
-class CompileRepo:
+class CompileBase:
     def __init__(self, repository: str):
         self.__repository: str = 'https://github.com/' + repository
-        self.__files_list: List[FileModel] = []
-        self.__directory_list: List[DirectoryModel] = []
-        self.__branch: str = ''
 
     @property
     def repository(self) -> str:
         return self.__repository
-
-    @property
-    def files_list(self) -> List[FileModel]:
-        return self.__files_list
-
-    @property
-    def directory_list(self) -> List[DirectoryModel]:
-        return self.__directory_list
-
-    @property
-    def branch(self):
-        return self.__branch
-
-    @branch.setter
-    def branch(self, branch):
-        self.__branch = branch
 
     @classmethod
     def html_convert_bs4(cls, url) -> BeautifulSoup:
@@ -45,7 +24,23 @@ class CompileRepo:
         # beautifulSoup transforma um documento HTML complexo em uma árvore complexa de objetos Python.
         return BeautifulSoup(req_get.content, 'html.parser')  # retornando o obj
 
-    def get_diretories_and_files(self) -> None:
+
+class CompileRepo(CompileBase):
+    def __init__(self, repository: str):
+        super().__init__(repository)
+        self.__files_list: List[FileModel] = []
+        self.__directory_list: List[DirectoryModel] = []
+        self.__branch: str = ''
+
+    @property
+    def branch(self):
+        return self.__branch
+
+    @branch.setter
+    def branch(self, branch):
+        self.__branch = branch
+
+    def get_diretories_and_files(self) -> FullDataModel:
         """
         Captura todos os dados necessarios (diretorios e arquivos)
         :return:
@@ -106,6 +101,13 @@ class CompileRepo:
                 # Transforma os sub_diretórios em diretórios para serem explorados
                 directorys = sub_directorys
 
+        return FullDataModel(
+            repository=self.__repository,
+            files=self.__files_list,
+            directories=self.__directory_list,
+            branch=self.__branch
+        )
+
     def __get_size_lines_on_file(self, file: FileModel) -> FileModel:
         """
         Extrai os dados da url presente no objeto
@@ -130,24 +132,12 @@ class CompileRepo:
 
         return file
 
-    def return_full_data_repo(self) -> FullDataModel:
-        """
-        Retorna todos os dados coletados em um objeto
-        :return: FullDataRepo
-        """
-        return FullDataModel(
-            repository=self.__repository,
-            files=self.__files_list,
-            directories=self.__directory_list,
-            branch=self.__branch
-        )
 
-
-class BranchsRepo(CompileRepo):
+class BranchsRepo(CompileBase):
     def __init__(self, repository: str):
         super().__init__(repository)
-        self.__branches_all_url = self.repository + '/branches/all'
-        self.__branchs = []
+        self.__branches_all_url: str = self.repository + '/branches/all'
+        self.__branchs: List[BranchModel] = []
 
     @property
     def branchs(self):
@@ -193,3 +183,45 @@ class BranchsRepo(CompileRepo):
             num += 1
 
         return self.__branchs
+
+
+class ReleasesRepo(CompileBase):
+    def __init__(self, repository: str):
+        super().__init__(repository)
+        self.__releases_all_url: str = self.repository + '/releases'
+        self.__releases: List[ReleaseModel] = []
+
+    def get_releases(self):
+        num = 1
+
+        while num:
+            soup_html = self.html_convert_bs4(self.__releases_all_url + f'?page={num}')
+
+            list_head = soup_html.find_all(class_='d-flex flex-column flex-md-row my-5 flex-justify-center')
+
+            if not list_head:
+                break
+
+            for _ in list_head:
+                div_cab = _.div
+
+                # Captura data / try para trocar atributo
+                try:
+                    relative_time = div_cab.find('relative-time').attrs['datetime']
+                except AttributeError:
+                    relative_time = div_cab.find('local-time').attrs['datetime']
+
+                # Formata a data para py
+                date_release = datetime.strptime(relative_time, '%Y-%m-%dT%H:%M:%SZ')
+
+                # Captura o nome do usuario
+                user = div_cab.find('a', {'data-hovercard-type': 'user'}).get_text(strip=True)
+
+                # Captura o nome da release
+                name = div_cab.find('a', {'href': True, 'data-view-component': True, 'class': 'Link--muted'}
+                                    ).get_text(strip=True)
+
+                self.__releases.append(ReleaseModel(name=name, date=date_release, user=user))
+            num += 1
+
+        return self.__releases
