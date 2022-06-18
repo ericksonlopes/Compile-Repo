@@ -6,16 +6,33 @@ from bs4 import BeautifulSoup
 from utils import *
 
 
-class CompileRepo:
+class CompileBase:
     def __init__(self, repository: str):
         self.__repository: str = 'https://github.com/' + repository
-        self.__files_list: List[FileModel] = []
-        self.__directory_list: List[DirectoryModel] = []
-        self.__branch: str = ''
 
     @property
     def repository(self) -> str:
         return self.__repository
+
+    @classmethod
+    def html_convert_bs4(cls, url) -> BeautifulSoup:
+        """
+        Função Converte o conteudo HTML recebido pela requisição em objetos python, Retornando esse obj
+        :param url: url completa
+        :return: BeautifulSoup
+        """
+        # Faz uma requisição trazendo o html
+        req_get = requests.get(url)
+        # beautifulSoup transforma um documento HTML complexo em uma árvore complexa de objetos Python.
+        return BeautifulSoup(req_get.content, 'html.parser')  # retornando o obj
+
+
+class CompileRepo(CompileBase):
+    def __init__(self, repository: str):
+        super().__init__(repository)
+        self.__files_list: List[FileModel] = []
+        self.__directory_list: List[DirectoryModel] = []
+        self.__branch: str = ''
 
     @property
     def files_list(self) -> List[FileModel]:
@@ -32,18 +49,6 @@ class CompileRepo:
     @branch.setter
     def branch(self, branch):
         self.__branch = branch
-
-    @classmethod
-    def html_convert_bs4(cls, url) -> BeautifulSoup:
-        """
-        Função Converte o conteudo HTML recebido pela requisição em objetos python, Retornando esse obj
-        :param url: url completa
-        :return: BeautifulSoup
-        """
-        # Faz uma requisição trazendo o html
-        req_get = requests.get(url)
-        # beautifulSoup transforma um documento HTML complexo em uma árvore complexa de objetos Python.
-        return BeautifulSoup(req_get.content, 'html.parser')  # retornando o obj
 
     def get_diretories_and_files(self) -> None:
         """
@@ -143,7 +148,7 @@ class CompileRepo:
         )
 
 
-class BranchsRepo(CompileRepo):
+class BranchsRepo(CompileBase):
     def __init__(self, repository: str):
         super().__init__(repository)
         self.__branches_all_url = self.repository + '/branches/all'
