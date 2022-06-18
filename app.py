@@ -1,9 +1,11 @@
 from flask import Flask, jsonify, request, redirect
+from flask_cors import CORS
 
 from compile_repo import CompileRepo, BranchsRepo, ReleasesRepo
 from utils import *
 
 app = Flask('__name__')
+CORS(app)
 
 
 @app.route('/', methods=['GET'])
@@ -25,7 +27,8 @@ def get_files_diretories() -> jsonify:
         gdf = CompileRepo(repository=json_data['repository']).get_diretories_and_files()
 
         if 'branch' in json_data.keys():
-            gdf.branch = json_data['branch']
+            if json_data['branch']:
+                gdf.branch = json_data['branch']
 
         # recebe o objeto com todos os dados
         data_full: FullDataModel = gdf
