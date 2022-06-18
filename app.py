@@ -22,13 +22,13 @@ def get_files_diretories() -> jsonify:
             return jsonify({'erro': f"Field 'repository' not found"}), 400
 
         # Instância da classe
-        cr = CompileRepo(json_data['repository'])
+        gdf = CompileRepo(repository=json_data['repository']).get_diretories_and_files()
 
         if 'branch' in json_data.keys():
-            cr.branch = json_data['branch']
+            gdf.branch = json_data['branch']
 
         # recebe o objeto com todos os dados
-        data_full: FullDataModel = cr.get_diretories_and_files()
+        data_full: FullDataModel = gdf
 
     except Exception as error:
         return jsonify({'erro': f"{str(error)} {str(type(error))}"}), 400

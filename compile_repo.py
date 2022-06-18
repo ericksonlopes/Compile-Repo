@@ -28,6 +28,7 @@ class CompileBase:
 class CompileRepo(CompileBase):
     def __init__(self, repository: str):
         super().__init__(repository)
+        self.__repository: str = 'https://github.com/' + repository
         self.__files_list: List[FileModel] = []
         self.__directory_list: List[DirectoryModel] = []
         self.__branch: str = ''
