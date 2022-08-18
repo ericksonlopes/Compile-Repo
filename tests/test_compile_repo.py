@@ -2,8 +2,8 @@ from typing import List
 
 import pytest
 
-from compile_repo import CompileRepo, BranchsRepo
-from utils import FullDataModel
+from src.compile_repo import CompileRepo, BranchsRepo
+from src.models import *
 
 
 @pytest.mark.parametrize('url', [

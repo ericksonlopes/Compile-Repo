@@ -1,7 +1,10 @@
+from datetime import datetime
+from typing import List
+
 import requests
 from bs4 import BeautifulSoup
 
-from utils import *
+from src.models import *
 
 
 class CompileBase:

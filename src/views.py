@@ -1,9 +1,10 @@
-from flask import Flask, jsonify, request, redirect
+from typing import List
+
+from flask import jsonify, request, redirect
 
 from compile_repo import CompileRepo, BranchsRepo, ReleasesRepo
-from utils import *
-
-app = Flask('__name__')
+from src.app import app
+from src.models import *
 
 
 @app.route('/', methods=['GET'])
