@@ -1,18 +1,19 @@
 from typing import List
 
-from flask import jsonify, request, redirect
+from flask import jsonify, request, redirect, Blueprint
 
-from compile_repo import CompileRepo, BranchsRepo, ReleasesRepo
-from src.app import app
+from src.compile_repo import CompileRepo, BranchsRepo, ReleasesRepo
 from src.models import *
 
+api = Blueprint('/', __name__)
 
-@app.route('/', methods=['GET'])
+
+@api.route('/', methods=['GET'])
 def redireciona() -> jsonify:
     return redirect('https://github.com/Erickson-lopes-dev/Compile-Repo', code=302)
 
 
-@app.route('/repofd', methods=['POST'])
+@api.route('/repofd', methods=['POST'])
 def get_files_diretories() -> jsonify:
     try:
         # Armazena a data no json
@@ -38,7 +39,7 @@ def get_files_diretories() -> jsonify:
         return jsonify(data_full), 200
 
 
-@app.route('/branchs', methods=['POST'])
+@api.route('/branchs', methods=['POST'])
 def get_branchs() -> jsonify:
     try:
         # Armazena a data no json
@@ -56,7 +57,7 @@ def get_branchs() -> jsonify:
         return jsonify(branchs), 200
 
 
-@app.route('/releases', methods=['POST'])
+@api.route('/releases', methods=['POST'])
 def get_releases() -> jsonify:
     try:
         # Armazena a data no json
@@ -74,7 +75,7 @@ def get_releases() -> jsonify:
         return jsonify(releases), 200
 
 
-@app.route('/tags', methods=['POST'])
+@api.route('/tags', methods=['POST'])
 def get_tags() -> jsonify:
     try:
         # Armazena a data no json
@@ -90,7 +91,3 @@ def get_tags() -> jsonify:
         return jsonify({'erro': f"{str(error)} {str(type(error))}"}), 400
     else:
         return jsonify({}), 200
-
-
-if __name__ == '__main__':
-    app.run()
